@@ -5,6 +5,22 @@ class PostsRepository {
     constructor() {
         this.posts = [];
     }
+    
+    getajax() {
+        return $.ajax({
+            method: "GET",
+            url: '/gettingdata',
+            dataType: "json",
+            success: function (data) {
+            //   let  arr = data.
+            //   console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.log("Error", textStatus);
+            }
+          });
+
+    }
 
     addPost(postText) {
         this.posts.push({ text: postText, comments: [] });

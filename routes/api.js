@@ -2,7 +2,7 @@ var {Post} = require('../models/postModel');
 const express = require('express')
 const router = express.Router()
 
-router.get('/posts', function (req, response) {
+router.get('/gettingdata', function (req, response) {
  Post.find({}).populate({
     path: 'comments'
   }).exec(function (err, res) {
