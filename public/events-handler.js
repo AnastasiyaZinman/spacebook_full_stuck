@@ -12,8 +12,8 @@ class EventsHandler {
         this.postsRepository.posts = data;
         return this.postsRepository.posts;
         })
-        .then((new_d) => {
-        this.postsRenderer.renderPosts(new_d)});
+        .then((posts) => {
+        this.postsRenderer.renderPosts(posts)});
     }
 
     registerAddPost() {
@@ -25,7 +25,6 @@ class EventsHandler {
             } else {  
                 this.postsRepository.addPost(text);
                 this.ajaxRender();
-                // this.postsRenderer.renderPosts(this.postsRepository.posts);
                 $input.val("");
             }
             });        
@@ -35,8 +34,8 @@ class EventsHandler {
         this.$posts.on('click', '.remove-post', (event) => {
             let index = $(event.currentTarget).closest('.post').index();
             console.log("postsexists?", this.postsRepository.posts);
-            // this.ajaxRender();
             this.postsRepository.removePost(index);
+            console.log("back to render");
             this.postsRenderer.renderPosts(this.postsRepository.posts);
           });
 

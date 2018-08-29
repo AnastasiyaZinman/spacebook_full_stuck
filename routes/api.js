@@ -23,9 +23,13 @@ router.post('/post', jsonParser, function (req, res) {
   res.send({"Text of Post": req.body.text})
 })
 
-router.post('/delete', jsonParser, function (req, res) {
-  if (!req.body) return res.sendStatus(400)
- 
-  res.send({"Text of Post": req.body.text})
-})
-module.exports = router
+router.get('/delete/:id', function (req, response) {
+  var post_id = req.params.id;
+  // console.log("Post_id",post_id);
+  Post.findOneAndRemove({ _id: post_id }).exec(function (err, res) {
+   response.send({"result":res})
+   })
+ });
+
+
+module.exports = router;

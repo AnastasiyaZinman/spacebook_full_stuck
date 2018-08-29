@@ -9,6 +9,7 @@ class PostsRenderer {
     }
 
     renderPosts(posts) {
+        console.log("RENDERING");
         this.$posts.empty();
         let template = Handlebars.compile(this.$postTemplate);
         for (let i = 0; i < posts.length; i++) {
