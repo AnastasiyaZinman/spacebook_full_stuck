@@ -8,11 +8,18 @@ class EventsHandler {
     registerAddPost() {
         $('#addpost').on('click', () => {
             let $input = $("#postText");
+            let text = $input.val();
             if ($input.val() === "") {
                 alert("Please enter text!"); 
-            } else {
-                this.postsRepository.addPost($input.val());
-                this.postsRenderer.renderPosts(this.postsRepository.posts);
+            } else {  
+                this.postsRepository.addPost(text);
+                this.postsRepository.getajax()
+                .then((data) => {
+                 return this.postsRenderer.posts = data;
+                })
+                .then((new_d) => {
+                this.postsRenderer.renderPosts(new_d)});
+                // this.postsRenderer.renderPosts(this.postsRepository.posts);
                 $input.val("");
             }
             });        

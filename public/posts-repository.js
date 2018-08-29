@@ -12,8 +12,6 @@ class PostsRepository {
             url: '/gettingdata',
             dataType: "json",
             success: function (data) {
-            //   let  arr = data.
-            //   console.log(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.log("Error", textStatus);
@@ -23,7 +21,23 @@ class PostsRepository {
     }
 
     addPost(postText) {
-        this.posts.push({ text: postText, comments: [] });
+            $.ajax({
+            type: "POST",
+            url: '/post',
+            data: {"text":postText},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  console.log("Post error", textStatus);
+                }
+          })
+          .then(() => {
+          console.log("posts",this.posts);
+          this.posts.push({ "text": postText, comments: [] });
+          })
+       
     }
 
     removePost(index) {

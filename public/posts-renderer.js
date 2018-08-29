@@ -15,7 +15,7 @@ class PostsRenderer {
         for (let i = 0; i < posts.length; i++) {
             console.log("posts[i]",posts[i]);
           let newHTML = template(posts[i]);
-          console.log(newHTML);
+        //   console.log(newHTML);
           this.$posts.append(newHTML);
           this.renderComments(posts, i);
         }

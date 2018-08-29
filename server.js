@@ -54,6 +54,7 @@ var comment3 = new Comment({
 // });
 //-------------------------------------------------
 var app = express();
+// app.use(bodyParser.json()); 
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 app.use(bodyParser.json());
