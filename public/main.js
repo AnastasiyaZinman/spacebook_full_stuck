@@ -7,7 +7,9 @@ let postsRenderer = new PostsRenderer();
 let eventsHandler = new EventsHandler(postsRepository, postsRenderer);
 postsRepository.getajax()
 .then((data) => {
-    return postsRenderer.posts = data; 
+    postsRepository.posts = data; 
+    console.log("posts main",postsRepository.posts);
+    return postsRepository.posts; 
     // console.log("postsRenderer.posts",postsRenderer.posts);
 })
 .then ((new_d) => {

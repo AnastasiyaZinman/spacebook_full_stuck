@@ -21,7 +21,11 @@ router.post('/post', jsonParser, function (req, res) {
   });
   newPost.save();
   res.send({"Text of Post": req.body.text})
-  
 })
 
+router.post('/delete', jsonParser, function (req, res) {
+  if (!req.body) return res.sendStatus(400)
+ 
+  res.send({"Text of Post": req.body.text})
+})
 module.exports = router

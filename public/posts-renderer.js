@@ -11,9 +11,8 @@ class PostsRenderer {
     renderPosts(posts) {
         this.$posts.empty();
         let template = Handlebars.compile(this.$postTemplate);
-        console.log("posts",posts);
         for (let i = 0; i < posts.length; i++) {
-            console.log("posts[i]",posts[i]);
+            // console.log("posts[i]",posts[i]);
           let newHTML = template(posts[i]);
         //   console.log(newHTML);
           this.$posts.append(newHTML);

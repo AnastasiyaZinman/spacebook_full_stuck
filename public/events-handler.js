@@ -5,6 +5,17 @@ class EventsHandler {
         this.$posts = $(".posts");
     }
 
+    ajaxRender() {
+        console.log("ajaxrender");
+        this.postsRepository.getajax()
+        .then((data) => {
+        this.postsRepository.posts = data;
+        return this.postsRepository.posts;
+        })
+        .then((new_d) => {
+        this.postsRenderer.renderPosts(new_d)});
+    }
+
     registerAddPost() {
         $('#addpost').on('click', () => {
             let $input = $("#postText");
@@ -13,12 +24,7 @@ class EventsHandler {
                 alert("Please enter text!"); 
             } else {  
                 this.postsRepository.addPost(text);
-                this.postsRepository.getajax()
-                .then((data) => {
-                 return this.postsRenderer.posts = data;
-                })
-                .then((new_d) => {
-                this.postsRenderer.renderPosts(new_d)});
+                this.ajaxRender();
                 // this.postsRenderer.renderPosts(this.postsRepository.posts);
                 $input.val("");
             }
@@ -27,12 +33,15 @@ class EventsHandler {
 
     registerRemovePost() {
         this.$posts.on('click', '.remove-post', (event) => {
-            let index = $(event.currentTarget).closest('.post').index();;
+            let index = $(event.currentTarget).closest('.post').index();
+            console.log("postsexists?", this.postsRepository.posts);
+            // this.ajaxRender();
             this.postsRepository.removePost(index);
             this.postsRenderer.renderPosts(this.postsRepository.posts);
           });
 
     }
+  
 
     registerToggleComments() {
         this.$posts.on('click', '.toggle-comments', (event) => {

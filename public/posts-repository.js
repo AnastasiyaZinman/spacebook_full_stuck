@@ -12,6 +12,7 @@ class PostsRepository {
             url: '/gettingdata',
             dataType: "json",
             success: function (data) {
+                // console.log("getajax return",data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.log("Error", textStatus);
@@ -27,21 +28,39 @@ class PostsRepository {
             data: {"text":postText},
             dataType: "json",
             success: function (data) {
-                console.log(data);
+                console.log("Add post",data);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                   console.log("Post error", textStatus);
                 }
           })
           .then(() => {
-          console.log("posts",this.posts);
+        //   console.log("posts addPost",this.posts);
           this.posts.push({ "text": postText, comments: [] });
           })
        
     }
-
+   
     removePost(index) {
-        this.posts.splice(index, 1);
+        console.log("posts in remove",this.posts);
+        console.log('index', index)
+        let id = this.posts[index]._id;
+        console.log('id =',id);
+        // $.ajax({
+        //     type: "POST",
+        //     url: '/delete',
+        //     data: {"_id": id},
+        //     dataType: "json",
+        //     success: function (data) {
+        //         console.log(data);
+        //         },
+        //         error: function (jqXHR, textStatus, errorThrown) {
+        //           console.log("Post error", textStatus);
+        //         }
+        //   })
+        //   .then(() => {
+        //   this.posts.splice(index, 1);
+        //   })
     }
     
     addComment(newComment, postIndex) {
