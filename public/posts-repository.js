@@ -37,7 +37,6 @@ class PostsRepository {
             .then(() => {
                 this.posts.push({ "text": postText, comments: [] }); //promise don't wait answer from ajax
             })
-
     }
 
     removePost(index) {
@@ -62,10 +61,40 @@ class PostsRepository {
         }
 
     addComment(newComment, postIndex) {
-        this.posts[postIndex].comments.push(newComment);
+        console.log("new comment",newComment);
+        let post_id = this.posts[postIndex]._id;
+        console.log('Post id =', newComment.text, newComment.user);
+        $.ajax({
+            type: "POST",
+            url: '/comment',
+            data: {"post_id": post_id ,"text": newComment.text,"user": newComment.user},
+            dataType: "json",
+            success: function (data) {
+                console.log("Add comments", data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Comment error", textStatus);
+            }
+        })       
+                this.posts[postIndex].comments.push(newComment);
     };
 
     deleteComment(postIndex, commentIndex) {
+        let PostId = this.posts[postIndex]._id;
+        let CommentId = this.posts[postIndex].comments[commentIndex]._id;
+        console.log('PostId',PostId,'CommentId',CommentId);
+        $.ajax({
+            type: "GET",
+            url: '/deletecomment/' + CommentId+ '/inPost/' + PostId,
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Post error", textStatus);
+            }
+            })
+            // console.log("splice");   
         this.posts[postIndex].comments.splice(commentIndex, 1);
     };
 }
