@@ -25,7 +25,7 @@ router.post('/post', jsonParser, function (req, res) {
 
 // POST comments 
 router.post('/comment', jsonParser, function (req, res) {
-  console.log("COMMMMMMEEEENTSSS");
+  // console.log("COMMMMMMEEEENTSSS");
   if (!req.body) return res.sendStatus(400)
   console.log("req.body.text",req.body.text,"req.body.user",req.body.user);
   Post.findByIdAndUpdate(req.body.post_id, 

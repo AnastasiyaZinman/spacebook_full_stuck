@@ -13,7 +13,6 @@ class PostsRenderer {
         this.$posts.empty();
         let template = Handlebars.compile(this.$postTemplate);
         for (let i = 0; i < posts.length; i++) {
-            // console.log("posts[i]",posts[i]);
           let newHTML = template(posts[i]);
         //   console.log(newHTML);
           this.$posts.append(newHTML);

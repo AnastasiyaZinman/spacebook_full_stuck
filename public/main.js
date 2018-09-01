@@ -5,16 +5,13 @@ import EventsHandler from './events-handler.js';
 let postsRepository = new PostsRepository();
 let postsRenderer = new PostsRenderer();
 let eventsHandler = new EventsHandler(postsRepository, postsRenderer);
-postsRepository.getajax()
+postsRepository.getajax('/gettingdata')
 .then((data) => {
     postsRepository.posts = data; 
-    console.log("posts main",postsRepository.posts);
-    return postsRepository.posts; 
-    // console.log("postsRenderer.posts",postsRenderer.posts);
+    return postsRepository.posts;
 })
-.then ((new_d) => {
-    // console.log("new_d",new_d);
-    postsRenderer.renderPosts(new_d)});
+.then ((new_data) => {
+    postsRenderer.renderPosts(new_data)});
 
 eventsHandler.registerAddPost();
 eventsHandler.registerRemovePost();
