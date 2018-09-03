@@ -9,32 +9,48 @@ router.get('/gettingdata', function (req, response) {
   Post.find({}).populate({
     path: 'comments'
   }).exec(function (err, res) {
+    //Add err handler everywhere
+    if(err){
+        console.log(err);
+     }
     response.send(res)
   })
 });
 
 // POST post
 router.post('/post', jsonParser, function (req, res) {
+  //Very good practice but also send .res so the user can understand why
   if (!req.body) return res.sendStatus(400)
   var newPost = new Post({
     text: req.body.text
   });
-  newPost.save();
-  res.send({ "Text of Post": req.body.text })
+  //Add callback function + err handling
+  //Make the code async so we only get reply if everything is working. if not then err
+  newPost.save(
+  (err, post) => {
+    if (err) throw err;
+    else {
+      res.send({ "post_id": post._id})
+      }
+    }
+  );
 })
 
 // POST comments 
 router.post('/comment', jsonParser, function (req, res) {
-  // console.log("COMMMMMMEEEENTSSS");
+  console.log("COMMMMMMEEEENTSSS");
   if (!req.body) return res.sendStatus(400)
-  console.log("req.body.text",req.body.text,"req.body.user",req.body.user);
-  Post.findByIdAndUpdate(req.body.post_id, 
+  //Use destruct and also define all var (let/const) at the top
+  let {post_id,text,user} =req.body;
+  console.log(post_id,"req.body.text",text,"req.body.user",user);
+  Post.findByIdAndUpdate(post_id, 
     {$push: 
       { comments: 
-        {text: req.body.text,
-         user: req.body.user}
+        {text: text,
+         user: user}
       }
     }, {new: true}, (err, post) => {
+    //This is a good handling of callback + 
     if (err) throw err;
     else {res.send(post)}
     })
@@ -50,6 +66,7 @@ router.get('/deletecomment/:commentId/inPost/:postId', (req, res,err) =>{
       console.log(err);
     }
     result.comments.splice(commentId, 1);;
+    //Notice you can control the var name anyware;
     let updatedPost = result;
     Post.findByIdAndUpdate(postId,updatedPost, function(err, result){
       if(err){
@@ -77,6 +94,7 @@ router.get('/delete/:id', function (req, response) {
   var post_id = req.params.id;
   // console.log("Post_id",post_id);
   Post.findOneAndRemove({ _id: post_id }).exec(function (err, res) {
+    //Err handling
     response.send({ "result": res })
   })
 });

@@ -3,6 +3,7 @@
 
 <head>
     <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.css"> -->
     <link href="style.css" rel="stylesheet">
     <title></title>
 </head>
@@ -19,6 +20,12 @@
                     <h3>Add a New Post</h3>
                     <div class="form-group">
                         <input class="form-control" type="text" id="postText" placeholder="Enter Post Text"/>
+                        <form class="uploadImage" enctype="multipart/form-data" action="/addImage" method="POST">
+                            <input type="file" name="imagename" id="imagename">
+                            <button class="btn" type="submit" form="form1" value="Download Image">
+                                <i class="fa fa-download"></i> Download</button></button>
+                            <!-- <input  type="submit" name="submit" value="Download Image"> -->
+                         </form>
                     </div>
                     <button type="button" id="addpost" class="btn btn-primary">Post</button>
                 </form>

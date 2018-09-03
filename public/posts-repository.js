@@ -21,22 +21,23 @@ class PostsRepository {
 
     }
     postajax(url_data, data) {
-        console.log("postAJAX");
-        $.ajax({
+        // console.log("postAJAX",data);
+        return $.ajax({
             type: "POST",
             url: url_data,
             data: data,
             dataType: "json",
             success: function (data) {
-                console.log("Data", data);
+                console.log("id",data.post_id);
+                return data.post_id;
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(url_data + "error", textStatus);
             }
         })
     }
-    addPost(postText) {
-        this.posts.push({ "text": postText, comments: [] }); //promise don't wait answer from ajax
+    addPost(post_ad,postText) {
+        this.posts.push({"_id":post_ad,"text": postText, comments: [] }); //promise doesn't wait answer from ajax
 
     }
 

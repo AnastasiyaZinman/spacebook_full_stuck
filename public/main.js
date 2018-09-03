@@ -5,13 +5,10 @@ import EventsHandler from './events-handler.js';
 let postsRepository = new PostsRepository();
 let postsRenderer = new PostsRenderer();
 let eventsHandler = new EventsHandler(postsRepository, postsRenderer);
-postsRepository.getajax('/gettingdata')
-.then((data) => {
-    postsRepository.posts = data; 
-    return postsRepository.posts;
-})
-.then ((new_data) => {
-    postsRenderer.renderPosts(new_data)});
+function init(){
+ eventsHandler.ajaxRender();
+}
+init();
 
 eventsHandler.registerAddPost();
 eventsHandler.registerRemovePost();
